@@ -1,0 +1,59 @@
+# ========= SISTEMA =========
+.DS_Store
+Thumbs.db
+
+# ========= LOGS =========
+*.log
+logs/
+
+# ========= ENV =========<
+.env
+.env.local
+.env.development
+.env.production
+
+# ========= NODE =========
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+
+# ========= BUILD =========
+dist/
+build/
+coverage/
+
+# ========= DOCKER =========
+docker-compose.override.yml
+
+# ========= IDE =========
+.vscode/
+.idea/
+
+# ========= TEMP =========
+*.tmp
+*.swp
+
+# ========= BACKUP =========
+*.bak
+*.old
+
+# ========= PLAYWRIGHT =========
+playwright-report/
+test-results/
+
+# ========= QA =========
+evidences/
+
+# ========= COVERAGE =========
+coverage/
+
+# ========= WINDOWS =========
+Desktop.ini
+
+# ========= DATABASE =========
+*.mdf
+*.ldf
+
+# ========= BIN OBJ (.NET) =========
+bin/
+obj/
