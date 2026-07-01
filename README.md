@@ -2,137 +2,25 @@
 
 Aplicación Full Stack desarrollada para la gestión de garantías de equipos Lenovo, incluyendo seguimiento de incidencias, control de componentes, dashboards analíticos y generación automática de reportes ejecutivos.
 
----
-
-## Arquitectura
-
-```text
-React (Frontend)
-        │
-        ▼
-.NET 8 REST API
-        │
-        ▼
-SQL Server
-```
-
----
-
-## Funcionalidades Principales
-
-### Gestión de Tickets
-
-- Registro de incidencias
-- Búsqueda por serie e inventario
-- Actualización de información
-- Seguimiento de estados
-- Gestión de garantías
-
-### Gestión de Componentes
-
-- Registro de componentes reemplazados
-- Historial de cambios
-- Relación Ticket-Componente
-
-### Dashboard Analítico
-
-- Total de tickets
-- Casos abiertos y cerrados
-- Garantías procedentes y no procedentes
-- Ranking de componentes
-- Casos por mes
-- Casos por trimestre
-- Tipos de daño
-
-### Reportes
-
-- Exportación CSV
-- Exportación Word
-- Inclusión automática de gráficos
-- Informe ejecutivo automatizado
-
----
-
-## Tecnologías
-
-### Frontend
-
-- React
-- Vite
-- Tailwind CSS
-- Axios
-- Recharts
-
-### Backend
-
-- ASP.NET Core 8
-- Entity Framework Core
-- SQL Server
-
-### DevOps
-
-- Docker
-- Docker Compose
-- GitHub
-
-### Testing
-
-- Playwright
-- Postman
-- Newman
-
----
-
-## Estructura del Proyecto
-
-```text
-GarantiasApp
-│
-├── Garantias.API
-├── garantias-frontend
-├── garantias-qa
-└── postman
-```
-
----
-
-## Repositorios Relacionados
+## Repositorios
 
 ### Frontend
 
 🔗 https://github.com/GabiProm/garantias-frontend
 
+Aplicación React con dashboard, filtros y generación de reportes.
+
 ### Backend
 
 🔗 https://github.com/GabiProm/garantias-api
+
+API REST desarrollada en ASP.NET Core 8 y SQL Server.
 
 ### QA Automation
 
 🔗 https://github.com/GabiProm/garantias-qa
 
----
-
-## QA Automation
-
-El proyecto cuenta con pruebas automatizadas para:
-
-### UI Testing
-
-- Crear Ticket
-- Buscar Ticket
-- Actualizar Ticket
-- Agregar Componente
-- Dashboard
-- Exportación Word
-
-### API Testing
-
-- GET Tickets
-- POST Ticket
-- GET Ticket por ID
-- PUT Ticket
-- DELETE Ticket
-
+Automatización UI con Playwright y API Testing con Postman/Newman.
 ---
 
 ## 📸 Capturas
@@ -190,26 +78,6 @@ Resultado de la generación dinámica de un informe en función de los filtros s
 Resultado de la exportación de data en función de los filtros aplicados. Incluye resumen, análisis y data completa.
 
 ![Export CSV](/screenshots/export-csv.PNG)
-
----
-
-## Instalación
-
-### Backend
-
-```bash
-cd Garantias.API
-dotnet restore
-dotnet run
-```
-
-### Frontend
-
-```bash
-cd garantias-frontend
-npm install
-npm run dev
-```
 
 ---
 

@@ -57,3 +57,24 @@ Desktop.ini
 # ========= BIN OBJ (.NET) =========
 bin/
 obj/
+
+# .NET
+bin/
+obj/
+
+# Playwright
+playwright-report/
+test-results/
+
+# Evidencias
+evidences/
+
+# Cobertura
+coverage/
+
+# Windows
+Desktop.ini
+
+# SQL Server LocalDB
+*.mdf
+*.ldf
