@@ -1,85 +1,52 @@
-# ========= SISTEMA =========
+# =========================
+# Repositorios independientes locales
+# =========================
+
+garantias-frontend/
+Garantias.API/
+garantias-qa/
+
+# =========================
+# Sistema operativo
+# =========================
+
 .DS_Store
 Thumbs.db
+Desktop.ini
 
-# ========= LOGS =========
+# =========================
+# Logs
+# =========================
+
 *.log
 logs/
 
-# ========= ENV =========<
+# =========================
+# Variables de entorno
+# =========================
+
 .env
-.env.local
-.env.development
-.env.production
+.env.*
+!.env.example
 
-# ========= NODE =========
+# =========================
+# Node / Build
+# =========================
+
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-
-# ========= BUILD =========
 dist/
 build/
 coverage/
 
-# ========= DOCKER =========
-docker-compose.override.yml
-
-# ========= IDE =========
-.vscode/
-.idea/
-
-# ========= TEMP =========
-*.tmp
-*.swp
-
-# ========= BACKUP =========
-*.bak
-*.old
-
-# ========= PLAYWRIGHT =========
-playwright-report/
-test-results/
-
-# ========= QA =========
-evidences/
-
-# ========= COVERAGE =========
-coverage/
-
-# ========= WINDOWS =========
-Desktop.ini
-
-# ========= DATABASE =========
-*.mdf
-*.ldf
-
-# ========= BIN OBJ (.NET) =========
-bin/
-obj/
-
+# =========================
 # .NET
+# =========================
+
 bin/
 obj/
 
-# Playwright
-playwright-report/
-test-results/
+# =========================
+# Docker
+# =========================
 
-# Evidencias
-evidences/
-
-# Cobertura
-coverage/
-
-# Windows
-Desktop.ini
-
-# SQL Server LocalDB
-*.mdf
-*.ldf
-
-# Repositorios independientes locales
-garantias-frontend/
-garantias-qa/
-Garantias.API/
+docker-compose.override.yml
