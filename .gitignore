@@ -78,3 +78,8 @@ Desktop.ini
 # SQL Server LocalDB
 *.mdf
 *.ldf
+
+# Repositorios independientes locales
+garantias-frontend/
+garantias-qa/
+Garantias.API/

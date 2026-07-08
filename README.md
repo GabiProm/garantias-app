@@ -1,6 +1,44 @@
 # Sistema de Gestión de Garantías
 
-Aplicación Full Stack desarrollada para la gestión de garantías de equipos Lenovo, incluyendo seguimiento de incidencias, control de componentes, dashboards analíticos y generación automática de reportes ejecutivos.
+Repositorio integrador del ecosistema **GarantiasApp**, una solución Full Stack desarrollada para la gestión de garantías de equipos Lenovo, seguimiento de incidencias, control de componentes, análisis operativo mediante dashboards y generación automática de reportes ejecutivos.
+
+Este repositorio centraliza la arquitectura general del proyecto, documentación, capturas, orquestación con Docker Compose y preparación del pipeline QA Automation mediante GitHub Actions.
+
+---
+
+## Descripción General
+
+GarantiasApp permite gestionar el ciclo completo de atención de garantías e incidencias técnicas:
+
+- Registro de tickets de incidencias.
+- Búsqueda y seguimiento de tickets.
+- Actualización de observaciones, casos y tickets asociados.
+- Gestión de componentes reemplazados.
+- Control de garantías procedentes y no procedentes.
+- Visualización de indicadores operativos mediante dashboards.
+- Exportación de reportes ejecutivos en Word y CSV.
+- Automatización de pruebas UI, API e híbridas API + UI.
+
+El proyecto está organizado en repositorios independientes para mantener una arquitectura modular, separando responsabilidades entre frontend, backend y QA Automation.
+
+---
+
+## Arquitectura del Ecosistema
+
+```text
+GarantiasApp
+│
+├── Frontend React
+│   └── Interfaz de usuario, dashboard, filtros y reportes.
+│
+├── Backend .NET
+│   └── API REST, reglas de negocio y conexión a SQL Server.
+│
+├── SQL Server
+│   └── Persistencia de tickets, garantías y componentes.
+│
+└── QA Automation
+    └── Playwright, Postman, Newman, reportes y dashboard QA.
 
 ## Repositorios
 
