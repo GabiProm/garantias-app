@@ -54,7 +54,7 @@ jobs:
 
       - name: Install Newman
         run: npm install -g newman
-        
+
       - name: Setup k6
         uses: grafana/setup-k6-action@v1
 
@@ -100,7 +100,7 @@ jobs:
         run: |
           newman run postman/Garantias_API.postman_collection.json \
           -e postman/STM_Local_Docker.postman_environment.json
-      
+
       - name: Prepare k6 reports directory
         working-directory: garantias-qa
         run: mkdir -p reports/performance
@@ -139,6 +139,14 @@ jobs:
           path: |
             garantias-qa/reports/
             garantias-qa/qa-dashboard/
+          retention-days: 30
+
+      - name: Upload k6 Performance Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: k6-performance-report
+          path: garantias-qa/reports/performance/
           retention-days: 30
 
       - name: Upload Test Results
