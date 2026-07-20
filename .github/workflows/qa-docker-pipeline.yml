@@ -54,6 +54,9 @@ jobs:
 
       - name: Install Newman
         run: npm install -g newman
+        
+      - name: Setup k6
+        uses: grafana/setup-k6-action@v1
 
       - name: Start application with Docker Compose
         run: docker compose -f docker-compose.ci.yml up -d --build
@@ -97,6 +100,19 @@ jobs:
         run: |
           newman run postman/Garantias_API.postman_collection.json \
           -e postman/STM_Local_Docker.postman_environment.json
+      
+      - name: Prepare k6 reports directory
+        working-directory: garantias-qa
+        run: mkdir -p reports/performance
+
+      - name: Run k6 smoke performance test
+        working-directory: garantias-qa
+        env:
+          BASE_URL: http://localhost:5177/api
+        run: |
+          k6 run \
+          --summary-export reports/performance/k6-smoke-summary.json \
+          performance/smoke-performance.test.js
 
       - name: Run Playwright regression tests
         working-directory: garantias-qa
