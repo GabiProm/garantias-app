@@ -1,0 +1,127 @@
+name: k6 Performance Manual Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_type:
+        description: "Tipo de prueba k6 a ejecutar"
+        required: true
+        default: "load"
+        type: choice
+        options:
+          - load
+          - stress
+          - both
+
+jobs:
+  k6-performance:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo integrador
+        uses: actions/checkout@v4
+
+      - name: Checkout frontend
+        uses: actions/checkout@v4
+        with:
+          repository: GabiProm/garantias-frontend
+          path: garantias-frontend
+
+      - name: Checkout backend
+        uses: actions/checkout@v4
+        with:
+          repository: GabiProm/garantias-api
+          path: Garantias.API
+
+      - name: Checkout QA
+        uses: actions/checkout@v4
+        with:
+          repository: GabiProm/garantias-qa
+          path: garantias-qa
+
+      - name: Setup k6
+        uses: grafana/setup-k6-action@v1
+
+      - name: Start application with Docker Compose
+        run: docker compose -f docker-compose.ci.yml up -d --build
+
+      - name: Show Docker containers
+        run: docker ps -a
+
+      - name: Wait for Backend
+        run: |
+          echo "Esperando Backend..."
+          for i in {1..60}; do
+            if curl -fsS http://localhost:5177/api/tickets; then
+              echo "Backend listo"
+              exit 0
+            fi
+            echo "Backend aún no disponible..."
+            sleep 5
+          done
+
+          echo "Backend no inició correctamente"
+          docker compose -f docker-compose.ci.yml logs backend
+          docker compose -f docker-compose.ci.yml logs sqlserver
+          exit 1
+
+      - name: Wait for Frontend
+        run: |
+          echo "Esperando Frontend..."
+          for i in {1..60}; do
+            if curl -fsS http://localhost:5173; then
+              echo "Frontend listo"
+              exit 0
+            fi
+            echo "Frontend aún no disponible..."
+            sleep 5
+          done
+
+          echo "Frontend no inició correctamente"
+          docker compose -f docker-compose.ci.yml logs frontend
+          exit 1
+
+      - name: Prepare k6 reports directory
+        working-directory: garantias-qa
+        run: mkdir -p reports/performance
+
+      - name: Run k6 load test
+        if: ${{ inputs.test_type == 'load' || inputs.test_type == 'both' }}
+        working-directory: garantias-qa
+        env:
+          BASE_URL: http://localhost:5177/api
+        run: |
+          k6 run \
+          --summary-export reports/performance/k6-load-summary.json \
+          performance/load-tickets.test.js
+
+      - name: Run k6 stress test
+        if: ${{ inputs.test_type == 'stress' || inputs.test_type == 'both' }}
+        working-directory: garantias-qa
+        env:
+          BASE_URL: http://localhost:5177/api
+        run: |
+          k6 run \
+          --summary-export reports/performance/k6-stress-summary.json \
+          performance/stress-tickets.test.js
+
+      - name: Upload k6 Performance Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: k6-manual-performance-reports
+          path: garantias-qa/reports/performance/
+          retention-days: 30
+
+      - name: Upload Docker Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-logs-k6-performance
+          path: |
+            garantias-qa/reports/performance/
+          retention-days: 30
+
+      - name: Stop Docker Compose
+        if: always()
+        run: docker compose -f docker-compose.ci.yml down -v
